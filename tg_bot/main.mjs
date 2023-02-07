@@ -43,6 +43,7 @@ bot.on('message', (ctx) => {
         ctx.reply('hide keyboard',Markup.removeKeyboard())
     }
     if(messageMenu.slice(3, messageMenu.length) === 'Search'){
+        ctx.reply('Cправка: для поиска информации по IP - необходимо отправить IP и нажать на кнопку - Shodan')
 		return ctx.reply(
            'Выберите сервис',
             {
@@ -56,9 +57,9 @@ bot.on('message', (ctx) => {
     }
     if(validIp(messageMenu)){
         bot.action('useShodan', async (ctx) => {
+           try{
             const responseUser = await queryAboutIp(messageMenu,process.env.API_TOKEN_SHODAN)
-           
-           ctx.reply(`
+            ctx.reply(`
             \nОткрытые порты: ${responseUser.generalInformation.openPort},\n
             \nКод Страны: ${responseUser.generalInformation.countryCode},\n
             \nГород: ${responseUser.generalInformation.city},\n
@@ -69,6 +70,10 @@ bot.on('message', (ctx) => {
                 
             \nСсылка: ${responseUser.fullInformation.url}\n
            `)
+           }catch(err){
+            ctx.reply(responseUser)
+           }
+           
         })
     }else{
         ctx.reply('Не правильный IP')

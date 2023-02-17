@@ -1,4 +1,4 @@
-.env
+env
 node_modules
 setWelcomeMessage.mjs
 write_log.mjs

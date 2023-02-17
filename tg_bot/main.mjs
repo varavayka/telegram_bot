@@ -1,6 +1,7 @@
 import { Markup, Telegraf } from 'telegraf'
 import * as dotenv from 'dotenv'
 dotenv.config()
+import setWelcomeMsg from '../lib/modules/tgModule/setWelcomeMessage.mjs'
 import {queryAboutIp, validIp} from '../lib/modules/tgModule/api_shodan.mjs'
 import queryOpenAI from '../lib/modules/tgModule/apiOpenAi.mjs'
 import keyboard from '../lib/modules/tgModule/keyboard.mjs'
@@ -10,7 +11,8 @@ const BotCommand = [{ command: '/menu', description: 'Меню' }]
 
 bot.start(async ctx => {
     try{
-        await ctx.reply(`Привет ${ctx.from.username}`)
+        const { username } = ctx.message.from
+        await ctx.reply(setWelcomeMsg(username).toUpperCase())
         await ctx.telegram.setMyCommands(BotCommand)
     }catch(err){
         console.log(err)

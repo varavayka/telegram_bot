@@ -1,6 +1,6 @@
 FROM node:18
 
-WORKDIR /home/kka/app_tg
+WORKDIR /home directory/user/your app
 
 COPY package*.json ./
 

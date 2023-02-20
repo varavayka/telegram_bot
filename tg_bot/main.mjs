@@ -36,10 +36,12 @@ bot.hears('OpenAI',async ctx => {
             try{
                 ctx.reply(await queryOpenAI(ctx.message.text))
             }catch(err){
+                console.log(err)
                 ctx.reply('Ошибка на сервере, отправьте новый запрос')
             }
         })
       }catch(err){
+        
           ctx.reply('При выполнении вашего запроса произошел сбой, попробуйте повторить попытку.')
       }
     
